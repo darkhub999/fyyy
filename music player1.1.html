@@ -1,0 +1,392 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music player</title>
+<link rel="stylesheet" href="music.css">
+<script src="https://kit.fontawesome.com/44a29f837f.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <style>
+     @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+    body{
+        padding: 0;
+        margin: 0;
+        font-family: Sans-Serif;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: rgb(193,48,213);
+        background: radial-gradient(circle, rgba(193,48,213,1) 19%, rgba(159,35,188,1) 50%, rgba(70,124,252,1) 100%);
+    }
+
+    .container{
+        text-align: center;
+        width:340px;
+        height: 600px;
+        margin: 30px;
+        border-radius:5%;
+        background: rgb(17,16,16);
+        background: linear-gradient(0deg, rgba(17,16,16,0.9902545490852591) 0%, rgba(0,0,0,1) 99%);
+    }
+    .card{
+        position: relative;
+        text-align: center;
+        width: 100%;
+        height: 56%;
+        background:linear-gradient(to bottom, rgba(14,37,73,0.7633637927827381),rgba(0,0,0,.9)),url('https://yt3.ggpht.com/ytc/AMLnZu8PqXn95janertAvWSiKSR7SST_6sNV93HwyglJtg=s900-c-k-c0x00ffffff-no-rj');
+        background-repeat: no-repeat;
+        background-position: top;
+        background-attachment: cover;
+        background-size: 100%;
+        border-radius:5%;
+    }
+    .card .menu{
+        padding-top: 40px;
+        font-size: 20px;
+        color: #fff;
+    }
+    .card .image{
+        padding-top: 10px;
+    }
+    .card .image img{
+        box-shadow: 30px 30px 50px #12121280;
+        border-radius: 20px;
+        background: #ffffff1b;
+        border-top: 1px solid #ffffff80;
+        border-left: 1px solid #ffffff80;
+  
+}
+.search:before {
+        position: absolute;
+        top: 25px;
+        right: 30px;
+        content: '\f002';
+        color: #fff;
+        font-size: 16px;
+        line-height: 16px;
+        cursor: pointer;
+        font-family: FontAwesome;
+        z-index: 10;
+        transition: all 0.3s ease-in;
+}
+.search:hover:before {
+  color: #f1cd00;
+}
+.main:before {
+  position: absolute;
+  top: 25px;
+  left: 30px;
+  content: '\f0c9';
+  color: #fff;
+  font-size: 16px;
+  line-height: 16px;
+  font-family: FontAwesome;
+  cursor: pointer;
+  z-index: 1;
+  transition: all 0.3s ease-in;
+}
+.main:hover:before {
+  color: #f1cd00;
+}
+input[type=checkbox] {
+  visibility: hidden;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+}
+a{
+       color:#fff;
+       text-decoration:none;
+}
+.container .name p{
+       font-size: 18px;
+   }
+.container .name .small{
+        color:#f1cd00;
+        font-size:13px;
+    }
+.progress {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 350px;
+      padding: 8px 50px 0 50px;
+    }
+.progress-bar {
+      position: relative;
+      width: 70%;
+      height: 5px;
+      background-color: #222;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+.now {
+      position: absolute;
+      left: 0;
+      display: inline-block;
+      height: 5px;
+      border-radius:5%;
+      background: #f1cd00;
+    }
+.now::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      height: 5px;
+      width: 2px;
+      background-color: #f1cd00;
+    }    
+.timer{
+         display: flex;
+         font-size: 13px;
+         padding:0 50px 0 45px;
+    }
+.timer p{
+        display: inline-block;
+        padding-right: 185px;
+    }
+.player{
+  background: none;
+  text-align: center;
+  color: #fff;
+  font-size: 28px;
+  position:relative;
+  padding: 8px 50px 15px 50px;
+  font-family: FontAwesome;
+  z-index: 10;
+  transition: all 0.3s ease-in;
+}
+.player td{
+    width: 100px;
+}
+.backward:before{
+    content: "\f04a";
+    cursor: pointer;
+    transition: all 0.15s linear;
+}
+.forward:before{
+    content:"\f04e";
+    cursor: pointer;
+    transition: all 0.15s linear;
+}
+.play:before{
+    content: "\f04b";
+    cursor: pointer;
+    transition: all 0.15s linear;
+}
+.backward:hover:before{
+  color: #f1cd00;                         
+   transition: all 0.15s linear;
+}
+.play:hover:before{
+    color: #f1cd00;
+    transition: all 0.15s linear;
+}
+.forward:hover:before{
+    color: #f1cd00;
+    transition: all 0.15s linear;
+}
+td > #play:checked ~ label.play:before{
+  content: "\f04c";
+  transition: all 0.15s linear;
+}
+.foot{
+  background:none;
+  text-align:center;	
+  color: #fff;
+  font-size: 20px;
+  display: flex;  
+  padding:0 5px 0 5px;
+  z-index: 1;
+  font-family: FontAwesome;
+  transition: all 0.3s ease-in;
+}
+.foot li{
+  display: inline-block;
+  padding: 0 15px 0 15px;
+  width: 100%;
+}
+.home:before{
+  content: "\f074";
+  cursor: pointer;
+  transition: all 0.15s linear;
+}
+.music:before{
+  content:"\f001";
+  cursor: pointer;
+  transition: all 0.15s linear;
+}
+.user:before{
+  content: "\f007";
+  cursor: pointer;
+  transition: all 0.15s linear;
+}
+.edit:before{
+  content: "\f1e0";
+  cursor: pointer;
+  transition: all 0.15s linear;
+}
+.home:hover:before{
+  color: #f1cd00;
+  transition: all 0.15s linear;                      
+}
+.user:hover:before{
+  color: #f1cd00;
+  transition: all 0.15s linear;
+}
+.edit:hover:before{
+  color: #f1cd00;
+  transition: all 0.15s linear;
+}
+.music:hover:before{
+  color: #f1cd00;
+ 
+}
+label.icons:before{
+  
+  content: '\f004';
+  color: #f1cd00;
+  font-size: 20px;
+  line-height: 20px;
+  font-family: FontAwesome;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.15s linear;
+}
+#heart:checked ~ label.icons:before{
+  content: "\f08a";
+  color: #fff;
+  transition: all 0.15s linear;
+}
+label.sound:before{
+  content: '\f028';
+  color: #fff;
+  font-size: 20px;
+  line-height: 20px;
+   font-family: FontAwesome;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.15s linear; */
+} 
+.sound:hover:before{
+  color: #f1cd00;
+  transition: all 0.15s linear;
+}
+#sound:checked ~ label.sound:before{
+  content: "\f6a9";
+  transition: all 0.15s linear;
+}
+audio{
+  z-index: 0.5;
+  visibility: hidden;
+}
+
+  </style>
+<div class="container">
+    <div class="card">
+                
+                <div class="main"><a href="playlist.html" class="main"></a></div>
+                <div class="search"></div>
+                <div class="menu"><a href="#"><i class="fas fa-angle-down"></i></a></div>
+               <div class="image"><img src="https://yt3.ggpht.com/ytc/AMLnZu8PqXn95janertAvWSiKSR7SST_6sNV93HwyglJtg=s900-c-k-c0x00ffffff-no-rj" width="75%"></div>
+    </div>
+    <div>
+         <div class="name">
+            <p>Starboy (feat.Daft Punk)</p>
+            <p class="small">The Weekend-Starboy</p>
+        </div>
+        <div class="progress">
+      <div class="progress-bar">
+        <div class="now"></div>
+      </div>
+      </div>
+      <div class="timer">
+     <p class="start"></p>
+     <p class="end"></p>
+        </div>
+     <table class="player">
+         <tr>
+            <td><input type="checkbox"  id="backward" ><label for="backward" class="backward"></label></td>
+            <td><input type="checkbox"  id="play" title="Play" onclick="togglePlayPause()"><label for="play" class="play"></label></td>
+            <td><input type="checkbox"  id="forward"><label for="forward" class="forward"></label></td></tr>
+        </table>
+        </div>
+        <div class="footer">
+            <ul class="foot">
+                <li><input type="checkbox"  id="sound" onclick="mute()"><label for="sound" class="sound"></label></li>
+                <li><input type="checkbox"  id="home" ><label for="home" class="home"></label></li>
+                <li><a href="playlist.html" class="music"></a></li>
+                <li><input type="checkbox"  id="heart"><label for="heart" class="icons"></label></li>
+            </ul>
+        </div>
+         <audio preload id="audio" controls>
+            <source src="https://res.cloudinary.com/nanhai/video/upload/v1660225512/G-DEVITH_I_m_Bored_ANH_TUNH_NAS_M_V_qbrllb.mp3">
+        </audio>
+</div>
+<script src="Music.js"></script>
+<script>
+  
+    var audio = document.getElementById('audio');
+        var playpause = document.getElementById("play");
+        var soundmute = document.getElementById("sound");
+        
+        function togglePlayPause() {
+            if(audio.paused || audio.ended) {
+                playpause.title = "Pause";
+                audio.play();
+            } else {
+                playpause.title = "Play";
+                audio.pause();
+            }
+        }
+        
+        function mute(){
+            if(audio.muted == false) {
+                   document.getElementById("audio").muted = true;
+            } else {
+                document.getElementById("audio").muted = false;
+              
+            }
+        }
+        
+          
+ const audio1 = document.getElementById('audio')
+  const start = document.querySelector('.start')
+  const end = document.querySelector('.end')
+  const progressBar = document.querySelector('.progress-bar')
+  const now = document.querySelector('.now')
+ 
+  function conversion (value) {
+    let minute = Math.floor(value / 60)
+    minute = minute.toString().length === 1 ? ('0' + minute) : minute
+    let second = Math.round(value % 60)
+    second = second.toString().length === 1 ? ('0' + second) : second
+    return `${minute}:${second}`
+  }
+ 
+  audio1.onloadedmetadata = function () {
+    end.innerHTML = conversion(audio1.duration)
+    start.innerHTML = conversion(audio1.currentTime)
+  }
+ 
+  progressBar.addEventListener('click', function (event) {
+    let coordStart = this.getBoundingClientRect().left
+    let coordEnd = event.pageX
+    let p = (coordEnd - coordStart) / this.offsetWidth
+    now.style.width = p.toFixed(3) * 100 + '%'
+ 
+    audio1.currentTime = p * audio1.duration
+    audio1.play()
+  })
+ 
+  setInterval(() => {
+    start.innerHTML = conversion(audio.currentTime)
+    now.style.width = audio1.currentTime / audio1.duration.toFixed(3) * 100 + '%'}, 1000)
+  
+</script>
+</body>
+</html>
